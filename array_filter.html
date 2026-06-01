@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced Array Filter</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #00b09b, #96c93d, #00c6ff);
+      background-size: 300% 300%;
+      animation: bgMove 8s infinite alternate;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+
+    .box {
+      width: 450px;
+      padding: 25px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      background: linear-gradient(to right, #ff512f, #dd2476);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      background: rgba(0,0,0,0.2);
+      padding: 10px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>Advanced Array Filter</h1>
+
+    <p>Array: [1,2,3,9,10,7,5,4,3]</p>
+
+    <select id="condition">
+      <option value="gt">Greater than 5</option>
+      <option value="lt">Less than 5</option>
+      <option value="eq">Equal to 5</option>
+    </select>
+
+    <select id="sort">
+      <option value="asc">Sort Ascending</option>
+      <option value="desc">Sort Descending</option>
+    </select>
+
+    <button onclick="processArray()">Apply</button>
+
+    <div class="result" id="output"></div>
+  </div>
+
+  <script>
+    let inputArr = [1,2,3,9,10,7,5,4,3];
+
+    function processArray() {
+      let condition = document.getElementById("condition").value;
+      let sortType = document.getElementById("sort").value;
+
+      let filtered = [];
+
+      // Multi condition filter
+      if (condition === "gt") {
+        filtered = inputArr.filter(num => num > 5);
+      } 
+      else if (condition === "lt") {
+        filtered = inputArr.filter(num => num < 5);
+      } 
+      else if (condition === "eq") {
+        filtered = inputArr.filter(num => num === 5);
+      }
+
+      // Sorting
+      if (sortType === "asc") {
+        filtered.sort((a, b) => a - b);
+      } else {
+        filtered.sort((a, b) => b - a);
+      }
+
+      document.getElementById("output").innerHTML =
+        "Result: [" + filtered.join(", ") + "]<br>" +
+        "Remaining: " + (inputArr.length - filtered.length);
+    }
+  </script>
+
+</body>
+</html>
